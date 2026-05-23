@@ -1,6 +1,7 @@
 @startuml sprzet
 
 	class "Etykieta" as ETY {
+		- id : int
 		- nazwa : String
 		- marka : Marka
 		- opis : String
@@ -10,20 +11,39 @@
 		- cenaZaWyporzyczenie : double 
 		- cenaZaOpoznienie : double
 		- cenaZaOpoznienieZaDzien : double
+		+ Etykieta(String, Marka, String, Kategoria)
+		+ ustawCeneZaDzien(double) : void
+		+ ustawCeneZaWyporzyczenie(double) : void
+		+ ustawCeneZaOpoznienie(double) : void
+		+ ustawCeneZaOpoznienieZaDzien(double) : void
+		+ gettery() : ...
+		+ settery(bez sprzety i id)(...) : void 
 	}
 
 	class "Marka" as MAR {
+		- id : int
 		- nazwa : String
 		- etykiety : Set<Etykieta>
+		+ Marka(String)
+		+ wezNazwa() : String
+		+ ustawNazwa(String) : void
 	}
 
 	class "Kategoria" as KAT {
+		- id : int
 		- nazwa : String
 		- etykiety : Set<Etykieta>
 		- cenaZaDzien : double
 		- cenaZaWyporzyczenie : double
 		- cenaZaOpoznienie : double
 		- cenaZaOpoznienieZaDzien : double
+		+ Kategoia(String)
+		+ ustawCeneZaDzien(double) : void
+		+ ustawCeneZaWyporzyczenie(double) : void
+		+ ustawCeneZaOpoznienie(double) : void
+		+ ustawCeneZaOpoznienieZaDzien(double) : void
+		+ gettery() : ...
+		+ settery(bez etykiety i id)(...) : void 
 	}
 
 	class "Sprzet" as SPR {
@@ -32,11 +52,15 @@
 		- etykieta : Etykieta
 		- status : SprzetStatus
 		- wypozycenie : Optional<Wypozycenie>
-		- wypozycenia : Set<Wypozycenie>
+		- rezerwacje : Set<Wypozycenie>
 		- {static} domyslnaCenaZaDzien : double
 		- {static} domyslnaCenaZaWyporzyczenie : double
 		- {static} domyslnaCenaZaOpoznienie : double
 		- {static} domyslnaCenaZaOpoznienieZaDzien : double
+		+ Sprzet(Etykieta)
+		+ gettery() : ...
+		+ settery(bez id, dniEksploatacji, i rezerwacje)(...) : void
+		+ eksploatuj(int);
 	}
 
 	enum "SprzetStatus" as SPS {
@@ -51,13 +75,20 @@
 
 
 	class "Wypozycenie" as WYP {
+		- id : int
 		- start : Date
 		- end : Date
 		- wplacono : double
 		- doZaplaty : double
 		- sprzet : Sprzet
-		- klient : Klient
+		- uzytkownik : Uzytkownik
 		- status : WypozycenieStatus
+		+ Wypozycenie(Date, Date, Sprzet Uzytkownik)
+		+ gettery() : ...
+		- sprawdzStatus() : void
+		+ wplac(double) : void
+		+ wydaj() : void
+		+ wezDoZaplaty() : double
 	}
 
 	enum "WypozycenieStatus" as WYS {
@@ -68,46 +99,8 @@
 		PRZEKROCZONO_TERMIN
 	}
 
-
-
-
-	class "Admin" as ADM {
-		- login : String
-		- haslo : String
-		+ sprawdzHaslo(String) : boolean
-
-		+ ustawCeneZaDzienDlaKategorii(Kategoria, double) : void
-		+ ustawCeneZaDzienDlaEtykiety(Etykieta, double) : void
-		+ ustawCeneDomyslnaZaDzien(double) : void
-		+ ustawCeneZaWypozycenieDlaKategorii(Kategoria, double) : void
-		+ ustawCeneZaWypozycenieDlaEtykiety(Etykieta, double) : void
-		+ ustawCeneDomyslnaZaWypozycenie(double) : void
-
-		+ ustawCenaZaOpoznienieDlaKategorii(Kategoria, double) : double
-		+ ustawCenaZaOpoznienieZaDzienDlaKategorii(Kategoria, double) : double
-		+ ustawCenaZaOpoznienieDlaEtykiety(Etykieta, double) : double
-		+ ustawCenaZaOpoznienieZaDzienDlaEtykiety(Etykieta, double) : double
-		+ ustawCenaDomyslnaZaOpoznienie(double) : double
-		+ ustawCenaDomyslnaZaOpoznienieZaDzien(double) : double
-
-		+ dodajSprzet(Etykieta, int) : void
-		+ dodajEtykiete(Etykieta) : void
-		+ dodajMarke(Marka) : void
-		+ dodajKategorie(Kategoria) : void
-
-		+ dodajPracownika(Pracownik) : void
-	}
-
-	class "Pracownik" as PRA {
-		- imie : String
-		- nazwisko : String
-		- nrTel : String
-		- dokument : String
-		- stanowisko : String
-		+ sprawdzHaslo(String) : boolean
-	}
-
-	class "Klient" as KLI {
+	class "Uzytkownik" as UZY {
+		- id : int
 		- imie : String
 		- nazwisko : String
 		- dokument : String
@@ -115,40 +108,57 @@
 		- haslo : String
 		- nrTel : Optional<String>
 		- adres : Optional<String>
-		- blokada : Date
+		- blokada : Optional<Date>
 		- wypozycenia : Set<Wypozycenie>
 		- platnosci : Set<Platnosc>
-		- wnioseki : Set<Wniosek>
+		- wnioski : Set<Wniosek>
+		- Uzytkownik(String, String, String, String, String, String, String)
 		+ sprawdzHaslo(String) : boolean
 		+ zablokuj(Date) : void
-		+ oplac(Wypozycenie) : void
+		+ oplac(Wypozycenie, double) : void
+		+ gettery(bez haslo)() : ...
+		+ settery(bez Set<*> i id)(...) : void
+		+ wypozyc(Date, Date, Sprzet) : void
+		+ rezerwuj(Date, Date, Sprzet) : void
 	}
 
-	class "Magazynier" as MAG {
-		- przyjeteZleceia : Set<Zlecenie>
-		+ przyjmijZlecenie(Zlecenie) : void
-		+ zrealizujZlecenie(Zlecenie) : void
-	}
-
-	class "PracownikBiurowy" as PBI {
-		+ dodajKlienta(Klient) : void
-		+ wydajSprzet(Klient, Sprzet) : void
-		+ przyjmijSprzet(Klient, Sprzet) : void
+	class "Kreator" as KUZ {
+		- imie : String
+		- nazwisko : String
+		- dokument : String
+		- email : String
+		- haslo : String
+		- nrTel : String
+		- adres : String
+		+ Kreator()
+		+ nazwisko(String) : Kreator
+		+ dokument(String) : Kreator
+		+ email(String) : Kreator
+		+ haslo(String) : Kreator
+		+ nrTel(String) : Kreator
+		+ adres(String) : Kreator
+		+ stwoz() : Uzytkownik
 	}
 
 	class "Platnosc" as PLA {
+		- id : int
 		- data : Date
 		- wypozycenie : Wypozycenie
 		- kwota : double
+		+ Platnosc(Date, Wypozycenie, double)
+		+ gettery() : ...
 	}
 
 	class "Wniosek" as WNI {
+		- id : int
 		- nowaData : Date
 		- klient : Klient
 		- wypozycenie : Wypozycenie
 		- status : WniosekStatus
 		+ rozpatrz(boolean) : void
 		+ rozpatrz(Date) : void
+		+ gettery() : ...
+		+ Wniosek(Date, Klient, Wypozycenie)
 	}
 
 	enum "WniosekStatus" as WNS {
@@ -159,8 +169,11 @@
 	}
 
 	class "Zlecenie" as ZLE {
+		- id : int
 		- status : ZlecenieStatus
 		- sprzet : Sprzet
+		+ Zlecenie(ZlecenieStatus, Sprzet)
+		+ gettery() : ...
 	}
  
 	enum "ZlecenieStatus" as ZLS {
@@ -178,29 +191,21 @@
 
 	WYS --o WYP
 
-	KLI o--o WYP
+	UZY o--o WYP
 
-	ADM -- PBI
+	KUZ ..> UZY
 
-	PBI -- KLI
-
-	KLI o-- PLA
-	PBI -- PLA
+	UZY o-- PLA
 	PLA o-- WYP
 
-	WNI o--o KLI
-	WNI -- PBI
+	WNI o--o UZY
 	WNI o-- WYP
 	WNS --o WNI
-
-	MAG --|> PRA
-	PBI --|> PRA
 
 	SPS --o SPR
 
 	ZLS --o ZLE
-	ZLE -- MAG
 	ZLE --o SPR
-	MAG -- SPR
+	UZY -- SPR
 
 @enduml
