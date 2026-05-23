@@ -12,6 +12,9 @@
 		- wnioski : Set<Wniosek>
 		- zlecenia : Set<Zlecenie>
 		+ gettery(ale takie specjalne)() : ...
+		+ dodawanie(do każdego setu)(...): void
+		+ zapisDoPliku() : void
+		+ odczytajZPliku() : void
 	}
 
 	enum "Uprawnienie" as UPR {
