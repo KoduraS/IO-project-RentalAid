@@ -296,7 +296,7 @@ deactivate UIK
 @enduml
 
 ' ============================================================
-' DIAGRAM 5a — Rozpatrzenie wniosku
+' DIAGRAM 6 — Rozpatrzenie wniosku
 ' ============================================================
 @startuml RozpatrzenieWniosku
 title Rozpatrzenie wniosku o przedluzenie
@@ -346,7 +346,7 @@ deactivate UIP
 @enduml
 
 ' ============================================================
-' DIAGRAM 6 — Wydanie sprzetu i zlecenie serwisu
+' DIAGRAM 7 — Wydanie sprzetu i zlecenie serwisu
 ' ============================================================
 @startuml WydanieISerwis
 title Wydanie sprzetu i zlecenie serwisu
@@ -416,7 +416,7 @@ deactivate UI
 @enduml
 
 ' ============================================================
-' DIAGRAM 7 — Blokada uzytkownika
+' DIAGRAM 8 — Blokada uzytkownika
 ' ============================================================
 @startuml BlokadaUzytkownika
 title Blokada konta uzytkownika
@@ -455,7 +455,7 @@ deactivate UI
 @enduml
 
 ' ============================================================
-' DIAGRAM 8 — Dodanie marki
+' DIAGRAM 9 — Dodanie marki
 ' ============================================================
 @startuml DodanieMarki
 title Dodanie marki
@@ -490,7 +490,7 @@ deactivate UI
 @enduml
 
 ' ============================================================
-' DIAGRAM 9 — Dodanie kategorii
+' DIAGRAM 10 — Dodanie kategorii
 ' ============================================================
 @startuml DodanieKategorii
 title Dodanie kategorii
@@ -531,7 +531,7 @@ deactivate UI
 @enduml
 
 ' ============================================================
-' DIAGRAM 10 — Dodanie etykiety
+' DIAGRAM 11 — Dodanie etykiety
 ' ============================================================
 @startuml DodanieEtykiety
 title Dodanie etykiety
@@ -583,7 +583,7 @@ deactivate UI
 @enduml
 
 ' ============================================================
-' DIAGRAM 11 — Dodanie sprzetu
+' DIAGRAM 12 — Dodanie sprzetu
 ' ============================================================
 @startuml DodanieSprzetu
 title Dodanie sprzetu
