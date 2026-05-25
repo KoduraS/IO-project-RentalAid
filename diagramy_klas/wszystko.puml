@@ -1,0 +1,211 @@
+@startuml sprzet
+
+	class "Etykieta" as ETY {
+		- id : int
+		- nazwa : String
+		- marka : Marka
+		- opis : String
+		- kategoria : Kategoria
+		- sprzety : Set<Sprzet>
+		- cenaZaDzien : double
+		- cenaZaWyporzyczenie : double 
+		- cenaZaOpoznienie : double
+		- cenaZaOpoznienieZaDzien : double
+		+ Etykieta(String, Marka, String, Kategoria)
+		+ ustawCeneZaDzien(double) : void
+		+ ustawCeneZaWyporzyczenie(double) : void
+		+ ustawCeneZaOpoznienie(double) : void
+		+ ustawCeneZaOpoznienieZaDzien(double) : void
+		+ gettery() : ...
+		+ settery(bez sprzety i id)(...) : void 
+	}
+
+	class "Marka" as MAR {
+		- id : int
+		- nazwa : String
+		- etykiety : Set<Etykieta>
+		+ Marka(String)
+		+ wezNazwa() : String
+		+ ustawNazwa(String) : void
+	}
+
+	class "Kategoria" as KAT {
+		- id : int
+		- nazwa : String
+		- etykiety : Set<Etykieta>
+		- cenaZaDzien : double
+		- cenaZaWyporzyczenie : double
+		- cenaZaOpoznienie : double
+		- cenaZaOpoznienieZaDzien : double
+		+ Kategoia(String)
+		+ ustawCeneZaDzien(double) : void
+		+ ustawCeneZaWyporzyczenie(double) : void
+		+ ustawCeneZaOpoznienie(double) : void
+		+ ustawCeneZaOpoznienieZaDzien(double) : void
+		+ gettery() : ...
+		+ settery(bez etykiety i id)(...) : void 
+	}
+
+	class "Sprzet" as SPR {
+		- id : int
+		- dniEksploatacji : int
+		- etykieta : Etykieta
+		- status : SprzetStatus
+		- wypozycenie : Optional<Wypozycenie>
+		- rezerwacje : Set<Wypozycenie>
+		- {static} domyslnaCenaZaDzien : double
+		- {static} domyslnaCenaZaWyporzyczenie : double
+		- {static} domyslnaCenaZaOpoznienie : double
+		- {static} domyslnaCenaZaOpoznienieZaDzien : double
+		+ Sprzet(Etykieta)
+		+ gettery() : ...
+		+ settery(bez id, dniEksploatacji, i rezerwacje)(...) : void
+		+ eksploatuj(int);
+	}
+
+	enum "SprzetStatus" as SPS {
+		W_DRODZE_DO_OPERATORA
+		W_MAGAZYNIE
+		CZEKA_NA_WYDANIE_KLIENTOWI
+		CZEKA_NA_WYDANIE_MAGAZYNIEROWI
+		W_DRODZE_DO_MAGAZYNU
+		W_NAPRAWIE
+		WYPOZCONY
+	}
+
+
+	class "Wypozycenie" as WYP {
+		- id : int
+		- start : Date
+		- end : Date
+		- wplacono : double
+		- doZaplaty : double
+		- sprzet : Sprzet
+		- uzytkownik : Uzytkownik
+		- status : WypozycenieStatus
+		+ Wypozycenie(Date, Date, Sprzet Uzytkownik)
+		+ gettery() : ...
+		- sprawdzStatus() : void
+		+ wplac(double) : void
+		+ wydaj() : void
+		+ wezDoZaplaty() : double
+	}
+
+	enum "WypozycenieStatus" as WYS {
+		REZERWACJA
+		W_TRAKCIE
+		OPLACONE
+		NIE_OPLACONE
+		PRZEKROCZONO_TERMIN
+	}
+
+	class "Uzytkownik" as UZY {
+		- id : int
+		- imie : String
+		- nazwisko : String
+		- dokument : String
+		- email : String
+		- haslo : String
+		- nrTel : Optional<String>
+		- adres : Optional<String>
+		- blokada : Optional<Date>
+		- wypozycenia : Set<Wypozycenie>
+		- platnosci : Set<Platnosc>
+		- wnioski : Set<Wniosek>
+		- Uzytkownik(String, String, String, String, String, String, String)
+		+ sprawdzHaslo(String) : boolean
+		+ zablokuj(Date) : void
+		+ oplac(Wypozycenie, double) : void
+		+ gettery(bez haslo)() : ...
+		+ settery(bez Set<*> i id)(...) : void
+		+ wypozyc(Date, Date, Sprzet) : void
+		+ rezerwuj(Date, Date, Sprzet) : void
+	}
+
+	class "Kreator" as KUZ {
+		- imie : String
+		- nazwisko : String
+		- dokument : String
+		- email : String
+		- haslo : String
+		- nrTel : String
+		- adres : String
+		+ Kreator()
+		+ nazwisko(String) : Kreator
+		+ dokument(String) : Kreator
+		+ email(String) : Kreator
+		+ haslo(String) : Kreator
+		+ nrTel(String) : Kreator
+		+ adres(String) : Kreator
+		+ stwoz() : Uzytkownik
+	}
+
+	class "Platnosc" as PLA {
+		- id : int
+		- data : Date
+		- wypozycenie : Wypozycenie
+		- kwota : double
+		+ Platnosc(Date, Wypozycenie, double)
+		+ gettery() : ...
+	}
+
+	class "Wniosek" as WNI {
+		- id : int
+		- nowaData : Date
+		- klient : Klient
+		- wypozycenie : Wypozycenie
+		- status : WniosekStatus
+		+ rozpatrz(boolean) : void
+		+ rozpatrz(Date) : void
+		+ gettery() : ...
+		+ Wniosek(Date, Klient, Wypozycenie)
+	}
+
+	enum "WniosekStatus" as WNS {
+		NIEROZPATRZONY
+		ROZPATRZONY_POZYTYWNIE
+		ROZPATRZONY_NEGATYWNIE
+		ROZPATRZONY_CZESCIOWO_POZYTYWNIE
+	}
+
+	class "Zlecenie" as ZLE {
+		- id : int
+		- status : ZlecenieStatus
+		- sprzet : Sprzet
+		+ Zlecenie(ZlecenieStatus, Sprzet)
+		+ gettery() : ...
+	}
+ 
+	enum "ZlecenieStatus" as ZLS {
+		WYDANIE
+		ODBIOR
+	}
+
+	SPR o--o ETY
+
+	ETY o--o MAR
+
+	ETY o--o KAT
+
+	SPR o--o WYP
+
+	WYS --o WYP
+
+	UZY o--o WYP
+
+	KUZ ..> UZY
+
+	UZY o-- PLA
+	PLA o-- WYP
+
+	WNI o--o UZY
+	WNI o-- WYP
+	WNS --o WNI
+
+	SPS --o SPR
+
+	ZLS --o ZLE
+	ZLE --o SPR
+	UZY -- SPR
+
+@enduml
