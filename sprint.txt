@@ -6,9 +6,7 @@ Wymagania użystkowników | Szymon Kodura, Albert Starosta, Marcin Będkowski
 Kompletne kryteria akceptacji i scenariusze testowe | Albert Starosta, Marcin Będkowski
 flow użytkownika | Szymon Kodura, Albert Starosta, Marcin Będkowski
 interaktywny prototyp interfejsu | Szymon Kodura
-
-TODO
-Badania interfejsu w gronie użytkowników
-Finalizacja prototypu UI
-Architektura systemu
-Diagramy klas, pakietów
+Badania interfejsu w gronie użytkowników | Szymon Kodura, Albert Starosta
+Finalizacja prototypu UI | Albert Starosta
+Diagramy klas | Marcin Będkowski
+Diagramy sekwencji | Szymon Kodura
