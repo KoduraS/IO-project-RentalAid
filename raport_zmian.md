@@ -22,5 +22,3 @@ System został przebudowany z prostego mockupu w profesjonalne narzędzie do obs
 * Wprowadzono formularze prowadzące przez konkretne procesy biznesowe (np. proces zwrotu czy akceptacja wniosków), co zwiększyło wydajność pracy.
 * Podział ról uprościł obsługę dla klientów i dał pracownikom narzędzia kontroli, których wcześniej brakowało.
 
-## Konkluzja
-System ewoluował w stronę platformy e-commerce, stawiając na przejrzystość finansową, łatwe wyszukiwanie i lepsze zarządzanie firmą.
