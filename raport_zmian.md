@@ -11,7 +11,7 @@ System został przebudowany z prostego mockupu w profesjonalne narzędzie do obs
 * Funkcje anulowania rezerwacji oraz przesyłania wniosków o przedłużenie terminu.
 
 ## Najważniejsze wprowadzone zmiany
-* **Rozdzielenie interfejsu** na osobne moduły dla Klienta oraz Operatora.
+* **Rozdzielenie interfejsu** na osobne moduły dla Klienta, Operatora wypożyczeń, Administratora i Magazyniera.
 * **Zastąpienie prostego przycisku rejestracji** pełnym formularzem danych (adres, kontakt).
 * **Wprowadzenie katalogu sprzętu** z wyszukiwarką, kategoriami i filtrowaniem.
 * **Dodanie modułu historii płatności**.
