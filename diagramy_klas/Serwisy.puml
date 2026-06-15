@@ -1,0 +1,39 @@
+@startuml serwisy
+
+class SerwisUzytkownikow{
+    +zablokujUzytkownika(int adminId,int uzytkownikId,Date dataDoKiedy):void
+    +stworzUzytkownika(String imie,String nazwisko,String dokument,String email,String haslo):Uzytkownik
+    +zmienDaneUzytkownika(String nazwaPola, String nowaWartość):void
+
+}
+
+class SerwisKatalogu{
+    +dodajEtykiete(String nazwa,String opis,int kategoriaId):Etykieta
+    +dodajKategorie(String nazwa, double cenaZaDzien, double cenaZaWypozycenie,cenaZaOpoznienie,double cenaZaopoznienieZaDzien):Kategoria
+    +dodajSprzet(int etykietaId):Sprzet
+    +zmienEtykiete(String nazwaPola,String nowaWartosc):void
+    +zmienKategorie(String nazwaPola,String nowaWartosc):void
+    +zmienSprzet(String nazwaPola,String nowaWartosc):void
+}
+
+class SerwisPlatnosci{
+    +oplacWypozycenie(int klientId,int wypozyczenieId,double kwota):boolean
+}
+
+class SerwisWypozyczen{
+    +rezerwujSprzet(int klientId,int sprzetId,Date start,Date end):boolean
+    +wypozycSprzet(int klientId,int SprzetId,Date start,Date Id):Wypozycenie
+}
+
+class SerwisWnioskow{
+    +rozpatrzWniosek(int wiosekId,WniosekStatus decyzja):WiosekStatus
+    +zlozWniosek(int klientId,int wypozyczenieId,Date nowaData)
+}
+
+class SerwisWydania{
+    +wydajSprzet(int wypozyczenieId):void
+    +zlecSerwisSprzetu(int sprzetId,ZlecenieStatus statusZlecenia):Zlecenie
+}
+
+
+@enduml
