@@ -10,7 +10,7 @@
 		- cenaZaWyporzyczenie : double 
 		- cenaZaOpoznienie : double
 		- cenaZaOpoznienieZaDzien : double
-		+ Etykieta(String, Marka, String, Kategoria)
+		+ Etykieta(String, String, Kategoria)
 		+ wezId():int
 		+ wezNazwa():String
 		+ wezOpis():String

@@ -1,18 +1,32 @@
 @startuml DataBase	
     
     class "BazaDanych" as BAD {
-		- uprawnienia : Map<int, Uprawnienie>
-		- kategorie : Set<Kategoria>
-		- etykiety : Set<Etykieta>
-		- marki : Set<Marka>
-		- sprzety : Set<Sprzety>
-		- wypozycenia : Set<Wypozycenie>
-		- uzytkownicy : Set<Uzytkownik>
-		- platnosci : Set<Platnosc>
-		- wnioski : Set<Wniosek>
-		- zlecenia : Set<Zlecenie>
-		+ gettery(ale takie specjalne)() : ...
-		+ dodawanie(do każdego setu)(...): void
+		- uprawnienia : Map<Integer, Uprawnienie>
+		- kategorie : Map<Integer,Kategoria>
+		- etykiety : Map<Integer,Etykieta>
+		- sprzety : Map<Integer,Sprzety>
+		- wypozycenia : Map<Integer,Wypozycenie>
+		- uzytkownicy : Map<Integer,Uzytkownik>
+		- platnosci : Map<Integer,Platnosc>
+		- wnioski : Map<Integer,Wniosek>
+		- zlecenia : Map<Integer,Zlecenie>
+		+ getUprawnienie(int):Uprawnienie
+		+ getKategoria(int):Kategoria
+		+ getEtykieta(int):Etykieta
+		+ getSprzet(int):Sprzet
+		+ getWypozycenie(int):Wypozycenie
+		+ getUzytkownik(int):Uzytkownik
+		+ getPlatnosc(int):Platnosc
+		+ getWniosek(int):Wniosek
+		+ getZlecenie(int):Zlecenie
+		+ addKategoria(Kategora):void
+		+ addEtykieta(Etykieta):void
+		+ addSprzet(Sprzet):void
+		+ addWypozycenie(Wypozycenie):void
+		+ addUzytkownik(Uzytkownik):void
+		+ addPlatnosc(Platnosc):void
+		+ addWniosek(Platnosc):void
+		+ addZlecenie(Zlecenie):void
 		+ zapisDoPliku() : void
 		+ odczytajZPliku() : void
 	}
@@ -44,7 +58,6 @@
 	class "Etykieta" as ETY {
 		- id : int
 		- nazwa : String
-		- marka : Marka
 		- opis : String
 		- kategoria : Kategoria
 		- sprzety : Set<Sprzet>
@@ -52,22 +65,13 @@
 		- cenaZaWyporzyczenie : double 
 		- cenaZaOpoznienie : double
 		- cenaZaOpoznienieZaDzien : double
-		+ Etykieta(String, Marka, String, Kategoria)
+		+ Etykieta(String, String, Kategoria)
 		+ ustawCeneZaDzien(double) : void
 		+ ustawCeneZaWyporzyczenie(double) : void
 		+ ustawCeneZaOpoznienie(double) : void
 		+ ustawCeneZaOpoznienieZaDzien(double) : void
 		+ gettery() : ...
 		+ settery(bez sprzety i id)(...) : void 
-	}
-
-	class "Marka" as MAR {
-		- ind : int
-		- nazwa : String
-		- etykiety : Set<Etykieta>
-		+ Marka(String)
-		+ wezNazwa() : String
-		+ ustawNazwa(String) : void
 	}
 
 	class "Sprzet" as SPR {
@@ -158,7 +162,6 @@
 	UPR -up-o BAD
 	KAT -up-o BAD
 	ETY -up-o BAD
-	MAR -up-o BAD
 	SPR -left-o BAD
 	WYP -right-o BAD
 	UZY -down-o BAD
