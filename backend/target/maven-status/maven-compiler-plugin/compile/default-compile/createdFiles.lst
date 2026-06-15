@@ -1,0 +1,14 @@
+model/Kreator.class
+model/Platnosc.class
+model/Etykieta.class
+model/ZlecenieStatus.class
+model/Wypozyczenie.class
+model/DemoWypozyczalnia.class
+model/SprzetStatus.class
+model/WypozyczenieStatus.class
+model/Kategoria.class
+model/WniosekStatus.class
+model/Sprzet.class
+model/Wniosek.class
+model/Zlecenie.class
+model/Uzytkownik.class
