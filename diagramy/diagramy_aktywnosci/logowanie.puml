@@ -1,0 +1,25 @@
+@startuml logowanie.puml
+title Logowanie
+|Użytkownik|
+start
+repeat
+    repeat
+        if () then (liczba prób wpisania hasła > 5)
+            :odczekaj 5 min;
+        else (liczba prób wpisania hasła < 5)
+        endif
+        :Wprowadź e-mail;
+        :Wprowadź hasło;
+        |System|
+        :Waliduj e-mail;
+        backward:Brak konta na dany e-mail>
+    repeat while () is (nie ma konta na taki e-mail)
+    ->konto istnieje;
+    :waliduj hasło;
+    backward:Hasło jest nieprawidlowe>
+repeat while () is (hasło jest nieprawidłowe)
+->hasło jest prawidłowe;
+:Przekieruj użytkownika do punktu nawigacyjnego;
+stop
+
+@enduml

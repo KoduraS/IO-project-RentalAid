@@ -1,0 +1,25 @@
+@startuml rezerwacja.puml
+title Rezerwacja
+
+|Użytkownik|
+start
+repeat
+    :Zaznacz sprzęt;
+    :Wybierz datę;
+    |System|
+    :Strawdź dostępność sprzętu;
+    backward:Sprzęt zarezerwowany w tym okrese>
+repeat while () is (sprzęt zarezerwowany)
+->sprzęt dostępny;
+|Użytkownik|
+:Dokonaj płatności;
+|System|
+fork
+:Zarezerwuj sprzęt;
+fork again
+:wyślij e-mail do użytkownika;
+fork again
+:wyślij komunikat do operatora>
+end fork
+stop
+@enduml

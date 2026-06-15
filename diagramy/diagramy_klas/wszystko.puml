@@ -1,0 +1,262 @@
+@startuml sprzet
+
+	class "Etykieta" as ETY {
+		- id : int
+		- nazwa : String
+		- opis : String
+		- kategoria : Kategoria
+		- sprzety : Set<Sprzet>
+		- cenaZaDzien : double
+		- cenaZaWyporzyczenie : double 
+		- cenaZaOpoznienie : double
+		- cenaZaOpoznienieZaDzien : double
+		+ Etykieta(String, String, Kategoria)
+		+ wezId():int
+		+ wezNazwa():String
+		+ wezOpis():String
+		+ wezKategoria():Kategoria
+		+ wezSprzety():Set<Sprzet>
+		+ wezCenaZaDzien():double
+		+ wezCenaZaWypozyczenie():double
+		+ wezCenaZaOpoznienie():double
+		+ wezCenaZaOpoznienieZaDzien():double
+		+ ustawNazwa(String):void
+		+ ustawOpis(String):void
+		+ ustawKategoria(Kategoria):void
+		+ ustawCeneZaDzien(double) : void
+		+ ustawCeneZaWyporzyczenie(double) : void
+		+ ustawCeneZaOpoznienie(double) : void
+		+ ustawCeneZaOpoznienieZaDzien(double) : void
+	}
+
+	class "Kategoria" as KAT {
+		- id : int
+		- nazwa : String
+		- etykiety : Set<Etykieta>
+		- cenaZaDzien : double
+		- cenaZaWyporzyczenie : double
+		- cenaZaOpoznienie : double
+		- cenaZaOpoznienieZaDzien : double
+		+ Kategoia(String)
+		+ wezId():int
+		+ wezNazwa():String
+		+ wezEtykiety():Set<Etykieta>
+		+ wezCenaZaDzien():double
+		+ wezCenaZaWypozyczenie():double
+		+ wezCenaZaOpoznienie():double
+		+ wezCenaZaOpoznienieZaDzien():double
+		+ ustawNazwa(String):void
+		+ ustawCeneZaDzien(double) : void
+		+ ustawCeneZaWyporzyczenie(double) : void
+		+ ustawCeneZaOpoznienie(double) : void
+		+ ustawCeneZaOpoznienieZaDzien(double) : void
+	}
+
+	class "Sprzet" as SPR {
+		- id : int
+		- dniEksploatacji : int
+		- etykieta : Etykieta
+		- status : SprzetStatus
+		- wypozyczenie : Optional<Wypozyczenie>
+		- rezerwacje : Set<Wypozyczenie>
+		- {static} domyslnaCenaZaDzien : double
+		- {static} domyslnaCenaZaWyporzyczenie : double
+		- {static} domyslnaCenaZaOpoznienie : double
+		- {static} domyslnaCenaZaOpoznienieZaDzien : double
+		+ Sprzet(Etykieta)
+		+ wezId():int
+		+ wezDniEksploatacji():int
+		+ wezEtykieta():Etykieta
+		+ wezStatus():SprzetStatus
+		+ wezWypozyczenieLubNull():Wypozyczenie
+		+ wezRezerwacje():Set<Wypozyczenie>
+		+ {static} wezDomyslnaCeneZaDzien():double
+		+ {static} wezDomyslnaCeneZaWyporzyczenie() : double
+		+ {static} wezDomyslnaCeneZaOpoznienie() : double
+		+ {static} wezDomyslnaCeneZaOpoznienieZaDzien() : double
+		+ ustawStatus(SprzetStatus):void
+		+ rozpocznijWypozyczenie(Wypozyczenie):void
+		+ rozpocznijWypozyczenie():void
+		+ zakoncWypozyczenie():void
+		+ dodajRezerwacje(Wypozyczenie):void
+		+ {static} ustawDomyslnaCeneZaDzien():double
+		+ {static} ustawDomyslnaCeneZaWyporzyczenie() : double
+		+ {static} ustawDomyslnaCeneZaOpoznienie() : double
+		+ {static} ustawDomyslnaCeneZaOpoznienieZaDzien() : double
+		- eksploatuj(int)
+		- czyMoznaWypozyczyc(Wypozyczenie):boolean
+	}
+
+	enum "SprzetStatus" as SPS {
+		W_DRODZE_DO_OPERATORA
+		W_MAGAZYNIE
+		CZEKA_NA_WYDANIE_KLIENTOWI
+		CZEKA_NA_WYDANIE_MAGAZYNIEROWI
+		W_DRODZE_DO_MAGAZYNU
+		W_NAPRAWIE
+		WYPOZCONY
+	}
+
+
+	class "Wypozyczenie" as WYP {
+		- id : int
+		- start : Date
+		- end : Date
+		- wplacono : double
+		- doZaplaty : double
+		- sprzet : Sprzet
+		- uzytkownik : Uzytkownik
+		- status : WypozyczenieStatus
+		+ Wypozyczenie(Date, Date, Sprzet, Uzytkownik)
+		+ gettery() : ...
+		' - sprawdzStatus() : void
+		+ wplac(double) : void
+		+ wydaj() : void
+		+ wezDoZaplaty() : double
+		- aktualizujStatus():void
+	}
+
+	enum "WypozyczenieStatus" as WYS {
+		REZERWACJA
+		W_TRAKCIE
+		OPLACONE
+		NIE_OPLACONE
+		PRZEKROCZONO_TERMIN
+	}
+
+	class "Uzytkownik" as UZY {
+		- id : int
+		- imie : String
+		- nazwisko : String
+		- dokument : String
+		- email : String
+		- haslo : String
+		- nrTel : Optional<String>
+		- adres : Optional<String>
+		- blokada : Optional<Date>
+		- wypozyczenia : Set<Wypozyczenie>
+		- platnosci : Set<Platnosc>
+		- wnioski : Set<Wniosek>
+		- Uzytkownik(String, String, String, String, String, String, String)
+		+ sprawdzHaslo(String) : boolean
+		+ zablokuj(Date) : void
+		+ oplac(Wypozyczenie, double) : void
+		+ wezId():int
+		+ wezImie():String
+		+ wezNazwisko():String
+		+ wezDokument() : String
+		+ wezEmail() : String
+		+ wezNrTelLubNull() : String
+		+ wezAdresLubNull() : String
+		+ wezDane():String
+		+ wezBlokadeLubNull():Date
+		+ wezWypozyczenia():Set<Wypozyczenie>
+		+ wezPlatnosci():Set<Platnosc>
+		+ wezWnioski():Set<Wniosek>
+		+ ustawImie(String):void
+		+ ustawNazwisko(String):void
+		+ ustawDokument(String):void
+		+ ustawEmail(String):void
+		+ ustawHaslo(String):void
+		+ ustawNrTel(String):void
+		+ ustawAdres(String):void
+		+ ustawBlokade(Date):void
+		+ wypozyc(Date, Date, Sprzet) : void
+		+ rezerwuj(Date, Date, Sprzet) : void
+	}
+
+	class "Kreator" as KUZ {
+		- imie : String
+		- nazwisko : String
+		- dokument : String
+		- email : String
+		- haslo : String
+		- nrTel : String
+		- adres : String
+		+ Kreator()
+		+ nazwisko(String) : Kreator
+		+ dokument(String) : Kreator
+		+ email(String) : Kreator
+		+ haslo(String) : Kreator
+		+ nrTel(String) : Kreator
+		+ adres(String) : Kreator
+		+ stwoz() : Uzytkownik
+	}
+
+	class "Platnosc" as PLA {
+		- id : int
+		- data : Date
+		- wypozyczenie : Wypozyczenie
+		- kwota : double
+		+ Platnosc(Date, Wypozyczenie, double)
+		+ wezId():int
+		+ wezDate():Date
+		+ wezWypozycenie():Wypozyczenie
+		+ wezKwota():double
+		+ wezDane():String
+	}
+
+	class "Wniosek" as WNI {
+		- id : int
+		- nowaData : Date
+		- klient : Klient
+		- wypozyczenie : Wypozyczenie
+		- status : WniosekStatus
+		+ rozpatrz(boolean) : void
+		+ rozpatrz(Date) : void
+		+ wezId() : int
+		+ wezNowaDate() : Date
+		+ wezKlienta() : Klient
+		+ wezWypozyczenie() : Wypozyczenie
+		+ wezStatus() : WniosekStatus
+		+ Wniosek(Date, Klient, Wypozyczenie)
+	}
+
+	enum "WniosekStatus" as WNS {
+		NIEROZPATRZONY
+		ROZPATRZONY_POZYTYWNIE
+		ROZPATRZONY_NEGATYWNIE
+		ROZPATRZONY_CZESCIOWO_POZYTYWNIE
+	}
+
+	class "Zlecenie" as ZLE {
+		- id : int
+		- status : ZlecenieStatus
+		- sprzet : Sprzet
+		+ Zlecenie(ZlecenieStatus, Sprzet)
+		+ wezId():int
+		+ wezStatus():ZlecenieStatus
+		+ wezSprzet():Sprzet
+	}
+ 
+	enum "ZlecenieStatus" as ZLS {
+		WYDANIE
+		ODBIOR
+	}
+
+	SPR o--o ETY
+
+	ETY o--o KAT
+
+	SPR o--o WYP
+
+	WYS --o WYP
+
+	UZY o--o WYP
+
+	KUZ ..> UZY
+
+	UZY o-- PLA
+	PLA o-- WYP
+
+	WNI o--o UZY
+	WNI o-- WYP
+	WNS --o WNI
+
+	SPS --o SPR
+
+	ZLS --o ZLE
+	ZLE --o SPR
+	UZY -- SPR
+
+@enduml

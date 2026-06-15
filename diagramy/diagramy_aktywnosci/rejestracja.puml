@@ -1,0 +1,59 @@
+@startuml rejestracja.puml
+title Rejestracja nowego użytkownika
+|Użytkownik|
+start
+:Rozpocznij rejestrację;
+repeat
+    :Wprowadź imię i nazwisko;
+    :wprowadź nr PESEL;
+    :wprowadź e-mail;
+    if () then (z nr telefonu)
+        :Wprowadź nr telefonu;
+    else (bez nr telefonu)
+    endif
+	if () then (z adresem)
+        :Wprowadz adres do korespondencji pocztowej;
+    else (bez adresu)
+    endif
+    |System|
+    :Waliduj dane;
+	if () then (konto już istnieje)
+		:przekieruj na stronę logowania;
+		end
+	endif
+	backward:Niepoprawne dane>
+repeat while () is (dane niepoprawne)
+->dane poprawne;
+|Użytkownik|
+repeat
+	:Wprowadź hasło;
+	:Powtóż hasło;
+	|System|
+	:Waliduj hasło;
+	backward:Różne hasła>
+repeat while () is (hasła są różne)
+->hasła są takie same;
+:Wyślij e-mail weryfikacyjny>
+end
+
+|Użytkownik|
+:Otrzymaj e-mail weryfikacyjny<
+repeat
+	if () then (liczba prób < 5)
+		:Wprowadź kod na stronie;
+		|System|
+		:Sprawdź kod;
+	else (liczba prób > 5)
+		:odrzuć dane klienta;
+		end
+	endif
+repeat while () is (kod niepoprawny)
+->kod poprawny;
+fork
+:wprowadź dane klienta do bazy danych;
+fork again
+:przekieruj na stronę logowania;
+end fork
+stop
+@enduml
+
