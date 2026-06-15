@@ -1,0 +1,41 @@
+---Obsługa klienta---
+
+Oprogramowanie musi umożliwiać wprowadzanie nowych klientów do systemu.
+
+System musi udostępniać możliwość potwierdzania wydania oraz zwrotów sprzętu.
+
+System musi umożliwiać przeglądanie bazy sprzętu z podziałem na wypożyczony, dostępny lub niedostępny (np. w naprawie).
+
+System musi umożliwiać wprowadzanie notatki dotyczącej uszkodzeń sprzętu wynikłych z użytkowania przez klienta.
+
+System musi umożliwiać rozpatrywanie wniosków klienta dotyczących przedłużenia wypożyczenia.
+
+---Magazyn---
+
+System musi umożliwiać potwierdzanie odbioru lub wydania sprzętu z magazynu.
+
+System musi udostępniać mechanizm zgłaszania potrzeby renowacji sprzętu.
+
+---Klienci---
+
+Aplikacja mobilna oraz webowa muszą umożliwiać klientom rejestrację celem utworzenia własnego konta.
+
+Aplikacja mobilna oraz webowa muszą umożliwiać klientom przeglądanie dostępnego sprzętu.
+
+Aplikacja mobilna oraz webowa muszą umożliwiać klientom rezerwację (z opcjonalnym dokonaniem płatności) sprzętu oraz zarządzanie rezerwacją.
+
+Aplikacja mobilna oraz webowa muszą umożliwiać wysłanie prośby o przedłużenie wypożyczenia sprzętu do obsługi klienta.
+
+Aplikacja mobilna oraz webowa muszą umożliwiać klientom przegląd historii wypożyczeń oraz płatności.
+
+Aplikacja mobilna oraz webowa powinny powiadamiać klientów o zbliżającym się terminie zwrotu sprzętu.
+
+---Administracja---
+
+System musi umożliwiać administratorowi wprowadzanie nowych pracowników do bazy danych oraz usuwanie z niej byłych pracowników.
+
+System musi umożliwiać administratorowi edycję bazy sprzętu.
+
+System musi umożliwiać administratorowi regulowanie cennika usług oraz wysokości kar za opóźnienia w oddaniu sprzętu.
+
+System musi umożliwiać administratorowi blokowanie kont klientów korzystających z aplikacji mobilnej lub webowej.
