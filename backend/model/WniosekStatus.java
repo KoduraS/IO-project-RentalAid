@@ -1,0 +1,9 @@
+package model;
+
+public enum WniosekStatus {
+    NIEROZPATRZONY,
+    ROZPATRZONY_POZYTYWNIE,
+    ROZPATRZONY_NEGATYWNIE,
+    ROZPATRZONY_CZESCIOWO_POZYTYWNIE
+}
+ 
