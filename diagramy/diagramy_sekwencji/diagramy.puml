@@ -1,0 +1,629 @@
+' ============================================================
+' DIAGRAM 1 — Rejestracja uzytkownika
+' ============================================================
+@startuml RejestracjaUzytkownika
+title Rejestracja uzytkownika
+
+actor      PracownikBiura        as PB
+
+boundary   "PanelAdmina"         as UI
+control    "SerwisUzytkownikow"  as SRV
+entity     "Kreator"             as KUZ
+entity     "Uzytkownik"          as UZY
+entity     "BazaDanych"          as BAD
+
+PB  -> UI  : Zarejestruj uzytkownika (przekazuje dane konta)
+activate UI
+
+UI  -> SRV : stworzUzytkownika(imie, nazwisko, dokument, email, haslo)
+activate SRV
+
+SRV -> KUZ : new Kreator()
+activate KUZ
+KUZ --> SRV : Kreator
+deactivate KUZ
+
+SRV -> KUZ : nazwisko(nazwisko)
+activate KUZ
+deactivate KUZ
+
+SRV -> KUZ : dokument(dokument)
+activate KUZ
+deactivate KUZ
+
+SRV -> KUZ : email(email)
+activate KUZ
+deactivate KUZ
+
+SRV -> KUZ : haslo(haslo)
+activate KUZ
+deactivate KUZ
+
+SRV -> KUZ : stworz()
+activate KUZ
+
+KUZ -> UZY : new Uzytkownik(imie, nazwisko, dokument, email, haslo, null, null)
+activate UZY
+UZY --> KUZ : Uzytkownik
+deactivate UZY
+
+KUZ --> SRV : Uzytkownik
+deactivate KUZ
+
+SRV -> BAD : uzytkownicy.add(u)
+activate BAD
+deactivate BAD
+
+SRV --> UI  : Uzytkownik
+deactivate SRV
+
+deactivate UI
+
+@enduml
+
+' ============================================================
+' DIAGRAM 2 — Wypozyczenie sprzetu
+' ============================================================
+@startuml WypozyczenieSprzetu
+title Wypozyczenie sprzetu
+
+actor    Klient                as KL
+
+boundary "PanelKlienta"        as UI
+control  "SerwisWypozyczen"    as SRV
+entity   "Uzytkownik"          as UZY
+entity   "Sprzet"              as SPR
+entity   "Wypozyczenie"        as WYP
+entity   "BazaDanych"          as BAD
+
+KL  -> UI  : Wypozycz sprzet (przekazuje termin i wybrany sprzet)
+activate UI
+
+UI  -> SRV : wypozyczSprzet(klientId, sprzetId, start, end)
+activate SRV
+
+SRV -> BAD : getUzytkownik(klientId)
+activate BAD
+BAD --> SRV : Uzytkownik
+deactivate BAD
+
+SRV -> UZY : getBlokada()
+activate UZY
+UZY --> SRV : brak (null)
+deactivate UZY
+
+SRV -> BAD : getSprzet(sprzetId)
+activate BAD
+BAD --> SRV : Sprzet
+deactivate BAD
+
+SRV -> SPR : getStatus()
+activate SPR
+SPR --> SRV : DOSTEPNY
+deactivate SPR
+
+SRV -> UZY : wypozyc(start, end, sprzet)
+activate UZY
+
+UZY -> WYP : new Wypozyczenie(start, end, sprzet, this)
+activate WYP
+note right of WYP : liczy doZaplaty,\nustawia status
+WYP --> UZY : Wypozyczenie
+deactivate WYP
+
+UZY --> SRV : void
+deactivate UZY
+
+SRV -> BAD : wypozycenia.add(w)
+activate BAD
+deactivate BAD
+
+SRV --> UI  : Wypozyczenie
+deactivate SRV
+
+deactivate UI
+
+@enduml
+
+' ============================================================
+' DIAGRAM 3 — Oplacenie wypozyczenia
+' ============================================================
+@startuml OplacanieWypozyczenia
+title Oplacenie wypozyczenia
+
+actor    Klient              as KL
+
+boundary "PanelKlienta"      as UI
+control  "SerwisPlatnosci"   as SRV
+entity   "Uzytkownik"        as UZY
+entity   "Wypozyczenie"      as WYP
+entity   "Platnosc"          as PLA
+entity   "BazaDanych"        as BAD
+
+KL  -> UI  : Oplac wypozyczenie (przekazuje kwote)
+activate UI
+
+UI  -> SRV : oplacWypozyczenie(klientId, wypozyczenieId, kwota)
+activate SRV
+
+SRV -> BAD : getUzytkownik(klientId)
+activate BAD
+BAD --> SRV : Uzytkownik
+deactivate BAD
+
+SRV -> BAD : getWypozyczenie(wypozyczenieId)
+activate BAD
+BAD --> SRV : Wypozyczenie
+deactivate BAD
+
+SRV -> UZY : oplac(wypozyczenie, kwota)
+activate UZY
+
+UZY -> WYP : wplac(kwota)
+activate WYP
+WYP -> WYP : wplacono += kwota
+WYP -> WYP : sprawdzStatus()
+deactivate WYP
+
+UZY -> PLA : new Platnosc(now(), wypozyczenie, kwota)
+activate PLA
+PLA --> UZY : Platnosc
+deactivate PLA
+
+UZY --> SRV : void
+deactivate UZY
+
+SRV -> BAD : platnosci.add(p)
+activate BAD
+deactivate BAD
+
+SRV --> UI  : ok
+deactivate SRV
+
+deactivate UI
+
+@enduml
+
+' ============================================================
+' DIAGRAM 4 — Rezerwacja sprzetu
+' ============================================================
+@startuml RezerwacjaSprzetu
+title Rezerwacja sprzetu
+
+actor    Klient                as KL
+
+boundary "PanelKlienta"        as UI
+control  "SerwisWypozyczen"    as SRV
+entity   "Uzytkownik"          as UZY
+entity   "Sprzet"              as SPR
+entity   "Wypozyczenie"        as WYP
+entity   "BazaDanych"          as BAD
+
+KL  -> UI  : Zarezerwuj sprzet (przekazuje termin i wybrany sprzet)
+activate UI
+
+UI  -> SRV : rezerwujSprzet(klientId, sprzetId, start, end)
+activate SRV
+
+SRV -> BAD : getUzytkownik(klientId)
+activate BAD
+BAD --> SRV : Uzytkownik
+deactivate BAD
+
+SRV -> UZY : getBlokada()
+activate UZY
+UZY --> SRV : brak (null)
+deactivate UZY
+
+SRV -> BAD : getSprzet(sprzetId)
+activate BAD
+BAD --> SRV : Sprzet
+deactivate BAD
+
+SRV -> SPR : getRezerwacje()
+activate SPR
+SPR --> SRV : Set<Wypozyczenie>
+deactivate SPR
+note over SRV : sprawdza kolizje terminow
+
+SRV -> UZY : rezerwuj(start, end, sprzet)
+activate UZY
+
+UZY -> WYP : new Wypozyczenie(start, end, sprzet, this)
+activate WYP
+WYP --> UZY : Wypozyczenie
+deactivate WYP
+
+UZY --> SRV : void
+deactivate UZY
+
+SRV -> BAD : wypozycenia.add(w)
+activate BAD
+deactivate BAD
+
+SRV --> UI  : ok
+deactivate SRV
+
+deactivate UI
+
+@enduml
+
+' ============================================================
+' DIAGRAM 5 — Zlozenie wniosku
+' ============================================================
+@startuml ZlozenieWniosku
+title Zlozenie wniosku o przedluzenie
+
+actor    Klient                  as KL
+
+boundary "PanelKlienta"          as UIK
+control  "SerwisWnioskow"        as SRV
+entity   "Uzytkownik"            as UZY
+entity   "Wniosek"               as WNI
+entity   "Wypozyczenie"          as WYP
+entity   "BazaDanych"            as BAD
+
+KL  -> UIK : Zloz wniosek o przedluzenie (przekazuje nowa date)
+activate UIK
+
+UIK -> SRV : zlozWniosek(klientId, wypozyczenieId, nowaData)
+activate SRV
+
+SRV -> BAD : getUzytkownik(klientId)
+activate BAD
+BAD --> SRV : Uzytkownik 
+deactivate BAD
+
+SRV -> BAD : getWypozyczenie(wypozyczenieId)
+activate BAD
+BAD --> SRV : Wypozyczenie
+deactivate BAD
+
+SRV -> WNI : new Wniosek(nowaData, uzytkownik, wypozyczenie)
+activate WNI
+WNI --> SRV : Wniosek
+deactivate WNI
+
+SRV -> BAD : wnioski.add(w)
+activate BAD
+deactivate BAD
+
+SRV --> UIK : Wniosek
+deactivate SRV
+
+deactivate UIK
+
+@enduml
+
+' ============================================================
+' DIAGRAM 6 — Rozpatrzenie wniosku
+' ============================================================
+@startuml RozpatrzenieWniosku
+title Rozpatrzenie wniosku o przedluzenie
+
+actor    PracownikBiura          as PB
+
+boundary "PanelPracownikaBiura"  as UIP
+control  "SerwisWnioskow"        as SRV
+entity   "Wniosek"               as WNI
+entity   "Wypozyczenie"          as WYP
+entity   "BazaDanych"            as BAD
+
+PB  -> UIP : Rozpatrz wniosek (przekazuje decyzje)
+activate UIP
+
+UIP -> SRV : rozpatrzWniosek(wniosekId, decyzja)
+activate SRV
+
+SRV -> BAD : getWniosek(wniosekId)
+activate BAD
+BAD --> SRV : Wniosek
+deactivate BAD
+
+alt decyzja == zaakceptowana
+    SRV -> WNI : rozpatrz(nowaData)
+    activate WNI
+    
+    WNI -> WYP  : setEnd(nowaData)
+    activate WYP
+    deactivate WYP
+    
+    WNI -> WNI  : status <- ZAAKCEPTOWANY
+    deactivate WNI
+else decyzja == odrzucona
+    SRV -> WNI : rozpatrz(false)
+    activate WNI
+    
+    WNI -> WNI  : status <- ODRZUCONY
+    deactivate WNI
+end
+
+SRV --> UIP : Wynik rozpatrzenia
+deactivate SRV
+
+deactivate UIP
+
+@enduml
+
+' ============================================================
+' DIAGRAM 7 — Wydanie sprzetu i zlecenie serwisu
+' ============================================================
+@startuml WydanieISerwis
+title Wydanie sprzetu i zlecenie serwisu
+
+actor    Magazynier            as MAG
+
+boundary "PanelMagazyniera"    as UI
+control  "SerwisWydania"       as SRV
+entity   "Wypozyczenie"        as WYP
+entity   "Sprzet"              as SPR
+entity   "Zlecenie"            as ZLE
+entity   "BazaDanych"          as BAD
+
+== Wydanie sprzetu ==
+
+MAG -> UI  : Wydaj sprzet (wskazuje wybrane wypozyczenie)
+activate UI
+
+UI  -> SRV : wydajSprzet(wypozyczenieId)
+activate SRV
+
+SRV -> BAD : getWypozyczenie(wypozyczenieId)
+activate BAD
+BAD --> SRV : Wypozyczenie
+deactivate BAD
+
+SRV -> WYP : wydaj()
+activate WYP
+WYP -> WYP : sprawdzStatus()
+note right of WYP : weryfikuje czy status\npozwala na wydanie
+WYP -> SPR : setStatus(WYPOZYCZONY)
+activate SPR
+deactivate SPR
+deactivate WYP
+
+deactivate SRV
+deactivate UI
+
+== Zlecenie serwisu ==
+
+MAG -> UI  : Zlec serwis (przekazuje status awarii/naprawy)
+activate UI
+
+UI  -> SRV : zlecSerwisSprzetu(sprzetId, statusZlecenia)
+activate SRV
+
+SRV -> BAD : getSprzet(sprzetId)
+activate BAD
+BAD --> SRV : Sprzet
+deactivate BAD
+
+SRV -> ZLE : new Zlecenie(statusZlecenia, sprzet)
+
+SRV -> SPR : eksploatuj(dni)
+activate SPR
+SPR -> SPR : dniEksploatacji += dni
+deactivate SPR
+
+SRV -> BAD : zlecenia.add(z)
+activate BAD
+deactivate BAD
+SRV --> UI  : Zlecenie
+deactivate SRV
+
+deactivate UI
+
+@enduml
+
+' ============================================================
+' DIAGRAM 8 — Blokada uzytkownika
+' ============================================================
+@startuml BlokadaUzytkownika
+title Blokada konta uzytkownika
+
+actor    Admin                    as ADM
+
+boundary "PanelAdmina"            as UI
+control  "SerwisUzytkownikow"     as SRV
+entity   "BazaDanych"             as BAD
+entity   "Uzytkownik"             as UZY
+
+ADM -> UI  : Zablokuj uzytkownika (przekazuje date do kiedy)
+activate UI
+
+UI  -> SRV : zablokujUzytkownika(adminId, uzytkownikId, dataDoKiedy)
+activate SRV
+
+SRV -> BAD : getUprawnienie(adminId)
+activate BAD
+BAD --> SRV : Rola (ADMIN)
+deactivate BAD
+
+SRV -> BAD : getUzytkownik(uzytkownikId)
+activate BAD
+BAD --> SRV : Uzytkownik
+deactivate BAD
+
+SRV -> UZY : zablokuj(dataDoKiedy)
+activate UZY
+UZY -> UZY : blokada <- dataDoKiedy
+deactivate UZY
+
+deactivate SRV
+deactivate UI
+
+@enduml
+
+' ============================================================
+' DIAGRAM 9 — Dodanie marki
+' ============================================================
+@startuml DodanieMarki
+title Dodanie marki
+
+actor    Admin              as ADM
+
+boundary "PanelAdmina"      as UI
+control  "SerwisKatalogu"   as SRV
+entity   "Marka"            as MAR
+entity   "BazaDanych"       as BAD
+
+ADM -> UI  : Dodaj marke (przekazuje nazwe)
+activate UI
+
+UI  -> SRV : dodajMarke(nazwa)
+activate SRV
+
+SRV -> MAR : new Marka(nazwa)
+activate MAR
+MAR --> SRV : Marka
+deactivate MAR
+
+SRV -> BAD : marki.add(m)
+activate BAD
+deactivate BAD
+
+SRV --> UI  : Marka
+deactivate SRV
+
+deactivate UI
+
+@enduml
+
+' ============================================================
+' DIAGRAM 10 — Dodanie kategorii
+' ============================================================
+@startuml DodanieKategorii
+title Dodanie kategorii
+
+actor    Admin              as ADM
+
+boundary "PanelAdmina"      as UI
+control  "SerwisKatalogu"   as SRV
+entity   "Kategoria"        as KAT
+entity   "BazaDanych"       as BAD
+
+ADM -> UI  : Dodaj kategorie (przekazuje nazwe i cennik)
+activate UI
+
+UI  -> SRV : dodajKategorie(nazwa, cenaZaDzien, cenaZaWypozyczenie, cenaZaOpoznienie, cenaZaOpoznienieZaDzien)
+activate SRV
+
+SRV -> KAT : new Kategoria(nazwa)
+activate KAT
+
+SRV -> KAT : ustawCeneZaDzien(cenaZaDzien)
+SRV -> KAT : ustawCeneZaWypozyczenie(cenaZaWypozyczenie)
+SRV -> KAT : ustawCeneZaOpoznienie(cenaZaOpoznienie)
+SRV -> KAT : ustawCeneZaOpoznienieZaDzien(cenaZaOpoznienieZaDzien)
+
+KAT --> SRV : Kategoria
+deactivate KAT
+
+SRV -> BAD : kategorie.add(k)
+activate BAD
+deactivate BAD
+
+SRV --> UI  : Kategoria
+deactivate SRV
+
+deactivate UI
+
+@enduml
+
+' ============================================================
+' DIAGRAM 11 — Dodanie etykiety
+' ============================================================
+@startuml DodanieEtykiety
+title Dodanie etykiety
+
+actor    Admin              as ADM
+
+boundary "PanelAdmina"      as UI
+control  "SerwisKatalogu"   as SRV
+entity   "Marka"            as MAR
+entity   "Etykieta"         as ETY
+entity   "Kategoria"        as KAT
+entity   "BazaDanych"       as BAD
+
+ADM -> UI  : Dodaj etykiete (przekazuje nazwe, opis i powiazania)
+activate UI
+
+UI  -> SRV : dodajEtykiete(nazwa, markaId, opis, kategoriaId)
+activate SRV
+
+SRV -> BAD : getMarka(markaId)
+activate BAD
+BAD --> SRV : Marka
+deactivate BAD
+
+SRV -> BAD : getKategoria(kategoriaId)
+activate BAD
+BAD --> SRV : Kategoria
+deactivate BAD
+
+SRV -> ETY : new Etykieta(nazwa, marka, opis, kategoria)
+activate ETY
+
+ETY -> KAT  : etykiety.add(this)
+activate KAT
+deactivate KAT
+
+ETY --> SRV : Etykieta
+deactivate ETY
+
+SRV -> BAD : etykiety.add(e)
+activate BAD
+deactivate BAD
+
+SRV --> UI  : Etykieta
+deactivate SRV
+
+deactivate UI
+
+@enduml
+
+' ============================================================
+' DIAGRAM 12 — Dodanie sprzetu
+' ============================================================
+@startuml DodanieSprzetu
+title Dodanie sprzetu
+
+actor    Admin              as ADM
+
+boundary "PanelAdmina"      as UI
+control  "SerwisKatalogu"   as SRV
+entity   "Sprzet"           as SPR
+entity   "Etykieta"         as ETY
+entity   "BazaDanych"       as BAD
+
+ADM -> UI  : Dodaj sprzet (wskazuje etykiete)
+activate UI
+
+UI  -> SRV : dodajSprzet(etykietaId)
+activate SRV
+
+SRV -> BAD : getEtykieta(etykietaId)
+activate BAD
+BAD --> SRV : Etykieta
+deactivate BAD
+
+SRV -> SPR : new Sprzet(etykieta)
+activate SPR
+
+SPR -> ETY  : sprzety.add(this)
+activate ETY
+deactivate ETY
+
+SPR --> SRV : Sprzet
+deactivate SPR
+
+SRV -> BAD : sprzety.add(s)
+activate BAD
+deactivate BAD
+
+SRV --> UI  : Sprzet
+deactivate SRV
+
+deactivate UI
+
+@enduml

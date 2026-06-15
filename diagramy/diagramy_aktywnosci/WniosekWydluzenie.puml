@@ -1,0 +1,50 @@
+@startuml WniosekWydluzenie.puml
+title Wniosek o przedłużenie
+|Użytkownik|
+start
+    repeat
+        :Zaznacz sprzęt z listy;
+        :Wybierz nowy termin oddania;
+        |System|
+        :Sprawdź rezerwacje dla sprzętu;
+        backward:Sprzęt zarezerwowany>
+    repeat while() is (sprzęt zarezerwowany)
+    ->sprzęt niezarezerwowany;
+    fork
+    :Wyślij wniosek o przedłużenie>
+    fork again
+    :Wyślij SMS do operatora;
+    end fork
+    end
+    |Operator|
+    :Odbierz wniosek o przedłużenie<
+    if() then (przyjmij)
+        if () then (w całości)
+			:Zaakceptuj wniosek;
+        else (na skrucony termin)
+			:Wybierz nową datę;
+        endif
+    else (odrzuć)
+        :Odrzuć wniosek;
+    endif
+    fork
+        |System|
+		:wyślij e-mail do użytkownika;
+	fork again
+		|Operator|
+		:Wyślij decyzję>
+	end fork
+	end
+	|Użytkownik|
+	:Odbierz decyzję<
+	if () then (odrzuć)
+		:Odrzuć decyzję;
+	else (przyjmij)
+		:Zaakceptuj decyzję;
+		|System|
+		:Wydłuż termin;
+		:Nalicz opłaty;
+	endif
+|Użytkownik|
+stop
+@endulm

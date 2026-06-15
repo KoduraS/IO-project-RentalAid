@@ -1,0 +1,13 @@
+@startuml anulowanie.puml
+title Anulowanie rezerwacji
+|Użytkownik|
+start
+:Zaznacz sprzęt;
+:Anulij rezerwację;
+|System|
+:Anulij rezerwację;
+:Zwróć środki;
+:Wyślij wiadomość do operatora>
+stop
+
+@enduml
