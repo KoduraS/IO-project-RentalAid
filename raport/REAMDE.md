@@ -1,10 +1,10 @@
-# 📦 RentalAid 📦
+# RentalAid 
 
 ## Zespół
 
-* 👤 **Szymon Kodura** - Team Leader
-* 👤 **Albert Starosta** - Specjalista
-* 👤 **Marcin Będkowski** - Specjalista
+*  **Szymon Kodura** - Team Leader
+*  **Albert Starosta** - Specjalista
+*  **Marcin Będkowski** - Specjalista
 
 ---
 
