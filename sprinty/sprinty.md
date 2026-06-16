@@ -41,3 +41,9 @@
     * Implementacja projektu (backend wraz z testami jednostkowymi).
     * Przygotowanie prezentacji projektu.
     * Skompletowanie dokumentacji końcowej.
+
+### Spotkanie 4 (26.05.2026)
+* **DONE:**
+    * Implementacja projektu (backend wraz z testami jednostkowymi). - *Szymon Kodura, Albert Starosta*
+    * Przygotowanie prezentacji projektu. - *Szymon Kodura, Albert Starosta, Marcin Będkowski*
+    * Skompletowanie dokumentacji końcowej. - *Szymon Kodura, Marcin Będkowski*
