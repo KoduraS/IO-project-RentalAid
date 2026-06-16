@@ -328,9 +328,8 @@ Projekt zawiera testy jednostkowe
 ## Spotkanie 2
 
 ### DONE
-
-    * Wymagania użytkowników – *Szymon Kodura, Albert Starosta, Marcin Będkowski*
-    * Historyjki – *Albert Starosta, Marcin Będkowski*
+* Wymagania użytkowników – *Szymon Kodura, Albert Starosta, Marcin Będkowski*
+* Historyjki – *Albert Starosta, Marcin Będkowski*
 
 ### TODO
 
@@ -343,10 +342,10 @@ Projekt zawiera testy jednostkowe
 ## Spotkanie 3
 
 ### DONE
-    * Raport z badania interfejsu w gronie użytkowników – *Szymon Kodura, Albert Starosta*
-    * Kompletne kryteria akceptacji i scenariusze testowe – *Albert Starosta, Marcin Będkowski*
-    * Flow użytkownika (diagramy aktywności) – *Szymon Kodura, Albert Starosta, Marcin Będkowski*
-    * Interaktywny prototyp interfejsu (low-fi) – *Szymon Kodura*
+* Raport z badania interfejsu w gronie użytkowników – *Szymon Kodura, Albert Starosta*
+* Kompletne kryteria akceptacji i scenariusze testowe – *Albert Starosta, Marcin Będkowski*
+* Flow użytkownika (diagramy aktywności) – *Szymon Kodura, Albert Starosta, Marcin Będkowski*
+* Interaktywny prototyp interfejsu (low-fi) – *Szymon Kodura*
 ### TODO
 
 * Projekt UI
@@ -356,9 +355,9 @@ Projekt zawiera testy jednostkowe
 ## Spotkanie 4
 
 ### DONE
-    * Finalizacja prototypu UI – *Albert Starosta*
-    * Diagramy klas – *Marcin Będkowski*
-    * Diagramy sekwencji – *Szymon Kodura*
+* Finalizacja prototypu UI – *Albert Starosta*
+* Diagramy klas – *Marcin Będkowski*
+* Diagramy sekwencji – *Szymon Kodura*
 
 ### TODO
 
@@ -371,9 +370,9 @@ Projekt zawiera testy jednostkowe
 
 ### DONE
 
-    * Implementacja projektu (backend wraz z testami jednostkowymi). - *Szymon Kodura, Albert Starosta*
-    * Przygotowanie prezentacji projektu. - *Szymon Kodura, Albert Starosta, Marcin Będkowski*
-    * Skompletowanie dokumentacji końcowej. - *Szymon Kodura, Marcin Będkowski*
+* Implementacja projektu (backend wraz z testami jednostkowymi). - *Szymon Kodura, Albert Starosta*
+* Przygotowanie prezentacji projektu. - *Szymon Kodura, Albert Starosta, Marcin Będkowski*
+* Skompletowanie dokumentacji końcowej. - *Szymon Kodura, Marcin Będkowski*
 
 ### Status projektu
 
