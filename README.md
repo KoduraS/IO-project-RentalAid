@@ -316,8 +316,8 @@ Projekt zawiera testy jednostkowe
 
 ### DONE
 
-* Strona tytułowa
-* Wizja systemu
+* Strona tytułowa – *Szymon Kodura*
+* Wizja systemu – *Szymon Kodura, Albert Starosta, Marcin Będkowski*
 
 ### TODO
 
@@ -329,11 +329,12 @@ Projekt zawiera testy jednostkowe
 
 ### DONE
 
-* Analiza wymagań użytkowników
-* Historyjki użytkownika
+    * Wymagania użytkowników – *Szymon Kodura, Albert Starosta, Marcin Będkowski*
+    * Historyjki – *Albert Starosta, Marcin Będkowski*
 
 ### TODO
 
+* Badania użytkowników
 * Kryteria akceptacji
 * Scenariusze testowe GWT
 * Diagramy aktywności
@@ -342,15 +343,12 @@ Projekt zawiera testy jednostkowe
 ## Spotkanie 3
 
 ### DONE
-
-* Kryteria akceptacji
-* Scenariusze testowe
-* Diagramy aktywności
-* Prototyp low-fi
-
+    * Raport z badania interfejsu w gronie użytkowników – *Szymon Kodura, Albert Starosta*
+    * Kompletne kryteria akceptacji i scenariusze testowe – *Albert Starosta, Marcin Będkowski*
+    * Flow użytkownika (diagramy aktywności) – *Szymon Kodura, Albert Starosta, Marcin Będkowski*
+    * Interaktywny prototyp interfejsu (low-fi) – *Szymon Kodura*
 ### TODO
 
-* Badania użytkowników
 * Projekt UI
 * Diagramy klas
 * Diagramy sekwencji
@@ -358,11 +356,9 @@ Projekt zawiera testy jednostkowe
 ## Spotkanie 4
 
 ### DONE
-
-* Raport z badań użytkowników
-* Finalizacja UI
-* Diagramy klas
-* Diagramy sekwencji
+    * Finalizacja prototypu UI – *Albert Starosta*
+    * Diagramy klas – *Marcin Będkowski*
+    * Diagramy sekwencji – *Szymon Kodura*
 
 ### TODO
 
@@ -375,10 +371,9 @@ Projekt zawiera testy jednostkowe
 
 ### DONE
 
-* Implementacja backendu
-* Testy jednostkowe
-* Dokumentacja końcowa
-* Prezentacja projektu
+    * Implementacja projektu (backend wraz z testami jednostkowymi). - *Szymon Kodura, Albert Starosta*
+    * Przygotowanie prezentacji projektu. - *Szymon Kodura, Albert Starosta, Marcin Będkowski*
+    * Skompletowanie dokumentacji końcowej. - *Szymon Kodura, Marcin Będkowski*
 
 ### Status projektu
 
