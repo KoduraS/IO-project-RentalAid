@@ -116,12 +116,10 @@ RentalAid eliminuje te problemy poprzez centralny system zarządzania wypożycza
 
 ## Analiza potrzeb użytkowników
 
-Na podstawie przeprowadzonych wywiadów i analizy wymagań wyróżniono trzy główne grupy użytkowników:
+Na podstawie przeprowadzonych wywiadów i analizy wymagań wyróżniono dwie główne grupy użytkowników:
 
 * Klienci
 * Pracownicy obsługi klienta
-* Pracownicy magazynu
-* Administratorzy systemu
 
 ### Kluczowe wymagania użytkowników
 
@@ -284,25 +282,11 @@ backend/
 
 │
 
-├── classes/
+├── src/
 
-│   ├── Entities/
-
-│   ├── Services/
-
-│   └── Datas/
-
-│
-
-├── tests/
-
-│   ├── EntitiesTests/
-
-│   ├── ServicesTests/
-
-│   └── DatasTests/
-
-│
+   ├── main/java/model
+   
+   ├── test/java/model
 
 └── pom.xml
 
@@ -323,13 +307,8 @@ mvn test
 
 ## Testy
 
-Projekt zawiera testy jednostkowe dla:
+Projekt zawiera testy jednostkowe
 
-* encji domenowych,
-* warstwy usług,
-* warstwy danych.
-
----
 
 # Raport stanu prac
 
@@ -405,14 +384,10 @@ Projekt zawiera testy jednostkowe dla:
 
 ✅ Analiza wymagań zakończona
 
-✅ Dokumentacja projektowa ukończona
-
 ✅ Projekt UI/UX ukończony
 
-✅ Diagramy UML ukończone
+✅ Diagramy stworzone
 
-✅ Implementacja backendu ukończona
+✅ Implementacja backendu i testów jednostkowych
 
-✅ Testy jednostkowe przygotowane
-
-✅ Projekt gotowy do dalszego rozwoju frontendu i integracji systemowej
+✅ Projekt gotowy do dalszego rozwoju
