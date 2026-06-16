@@ -455,41 +455,6 @@ deactivate UI
 @enduml
 
 ' ============================================================
-' DIAGRAM 9 — Dodanie marki
-' ============================================================
-@startuml DodanieMarki
-title Dodanie marki
-
-actor    Admin              as ADM
-
-boundary "PanelAdmina"      as UI
-control  "SerwisKatalogu"   as SRV
-entity   "Marka"            as MAR
-entity   "BazaDanych"       as BAD
-
-ADM -> UI  : Dodaj marke (przekazuje nazwe)
-activate UI
-
-UI  -> SRV : dodajMarke(nazwa)
-activate SRV
-
-SRV -> MAR : new Marka(nazwa)
-activate MAR
-MAR --> SRV : Marka
-deactivate MAR
-
-SRV -> BAD : marki.add(m)
-activate BAD
-deactivate BAD
-
-SRV --> UI  : Marka
-deactivate SRV
-
-deactivate UI
-
-@enduml
-
-' ============================================================
 ' DIAGRAM 10 — Dodanie kategorii
 ' ============================================================
 @startuml DodanieKategorii
@@ -540,7 +505,6 @@ actor    Admin              as ADM
 
 boundary "PanelAdmina"      as UI
 control  "SerwisKatalogu"   as SRV
-entity   "Marka"            as MAR
 entity   "Etykieta"         as ETY
 entity   "Kategoria"        as KAT
 entity   "BazaDanych"       as BAD
@@ -550,11 +514,6 @@ activate UI
 
 UI  -> SRV : dodajEtykiete(nazwa, markaId, opis, kategoriaId)
 activate SRV
-
-SRV -> BAD : getMarka(markaId)
-activate BAD
-BAD --> SRV : Marka
-deactivate BAD
 
 SRV -> BAD : getKategoria(kategoriaId)
 activate BAD
