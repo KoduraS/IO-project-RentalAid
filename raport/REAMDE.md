@@ -312,14 +312,7 @@ backend/
 
 * Java 17+
 * Maven 3.9+
-* IntelliJ IDEA
 
-### IntelliJ IDEA
-
-1. Sklonuj repozytorium.
-2. Otwórz projekt.
-3. Załaduj konfigurację Maven.
-4. Uruchom projekt lub testy.
 
 ### Maven
 
